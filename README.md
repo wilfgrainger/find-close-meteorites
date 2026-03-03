@@ -1,20 +1,19 @@
-# find-close-meteorites
-A demo project that users Python and NASA data to find meteoer landing sites
+# Toca Life World Clone
 
-## Running
+A bare-bones React and Cloudflare prototype for a 2D drag-and-drop sandbox game like Toca Life World.
 
-this project requires Python 3 and the requests package.
+## Running the Prototype locally
 
-## First, install Pipenv. Then:
-
-```
-pipenv install
-pipenv run "python meteors/find_meteors.py"
+```bash
+npm install
+npm run dev
 ```
 
+The prototype should load on `localhost:3000`.
 
+## Architecture
 
-
-
-
-
+* **Frontend:** React + Vite
+* **Backend API:** Cloudflare Workers
+* **Database:** Cloudflare D1 (relational storage)
+* **Cache:** Cloudflare KV (fast retrieval)
