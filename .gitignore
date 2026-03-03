@@ -105,3 +105,4 @@ venv.bak/
 
 # Pipfile. lock file 
 Pipfile.lock
+toca-clone/node_modules/
