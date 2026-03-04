@@ -48,17 +48,16 @@ const GameRoom = () => {
     const newY = e.clientY - roomRect.top - 25;  // Assuming item is ~50px high
 
     // Optimistically update UI
+    let movedItem = null;
     const updatedItems = items.map((item) => {
       if (item.id === draggedItemId) {
-        return { ...item, x: newX, y: newY };
+        movedItem = { ...item, x: newX, y: newY };
+        return movedItem;
       }
       return item;
     });
 
     setItems(updatedItems);
-
-    // Find the moved item to save it
-    const movedItem = updatedItems.find(i => i.id === draggedItemId);
 
     // Persist to Cloudflare Worker
     try {
