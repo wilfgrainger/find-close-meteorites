@@ -42,7 +42,8 @@ export default {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
       } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+        console.error(error);
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
           status: 500,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
@@ -75,7 +76,8 @@ export default {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
       } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+        console.error(error);
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
           status: 500,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
