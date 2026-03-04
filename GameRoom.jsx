@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 const API_URL = 'https://your-worker.your-subdomain.workers.dev';
 const ROOM_ID = 'demo-room'; // Example room ID
 
+const DEFAULT_ITEMS = [{ id: 'block-1', type: 'block', x: 100, y: 100 }];
+
 const GameRoom = () => {
   const [items, setItems] = useState([]);
   const [draggedItemId, setDraggedItemId] = useState(null);
@@ -15,7 +17,7 @@ const GameRoom = () => {
       .then((data) => {
         // If the DB is empty, start with a default block
         if (!Array.isArray(data) || data.length === 0) {
-          setItems([{ id: 'block-1', type: 'block', x: 100, y: 100 }]);
+          setItems(DEFAULT_ITEMS);
         } else {
           setItems(data);
         }
@@ -23,7 +25,7 @@ const GameRoom = () => {
       .catch((err) => {
         console.error('Failed to load room:', err);
         // Provide default block if API is unreachable for local testing
-        setItems([{ id: 'block-1', type: 'block', x: 100, y: 100 }]);
+        setItems(DEFAULT_ITEMS);
       });
   }, []);
 
