@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// You will need to replace this with your actual Cloudflare Worker URL
-const API_URL = 'https://your-worker.your-subdomain.workers.dev';
 const ROOM_ID = 'demo-room'; // Example room ID
 
 const DEFAULT_ITEMS = [{ id: 'block-1', type: 'block', x: 100, y: 100 }];
@@ -12,21 +10,19 @@ const GameRoom = () => {
 
   // Load the initial layout
   useEffect(() => {
-    fetch(`${API_URL}/api/room/${ROOM_ID}`)
-      .then((res) => res.json())
-      .then((data) => {
-        // If the DB is empty, start with a default block
-        if (!Array.isArray(data) || data.length === 0) {
-          setItems(DEFAULT_ITEMS);
-        } else {
+    try {
+      const saved = localStorage.getItem(`room:${ROOM_ID}`);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (Array.isArray(data) && data.length > 0) {
           setItems(data);
+          return;
         }
-      })
-      .catch((err) => {
-        console.error('Failed to load room:', err);
-        // Provide default block if API is unreachable for local testing
-        setItems(DEFAULT_ITEMS);
-      });
+      }
+    } catch (err) {
+      console.error('Failed to load room from local storage:', err);
+    }
+    setItems(DEFAULT_ITEMS);
   }, []);
 
   const handleDragStart = (e, id) => {
@@ -61,23 +57,11 @@ const GameRoom = () => {
 
     setItems(updatedItems);
 
-    // Persist to Cloudflare Worker
+    // Persist to Local Storage
     try {
-      await fetch(`${API_URL}/api/save`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: movedItem.id,
-          roomId: ROOM_ID,
-          type: movedItem.type,
-          x: newX,
-          y: newY,
-        }),
-      });
+      localStorage.setItem(`room:${ROOM_ID}`, JSON.stringify(updatedItems));
     } catch (err) {
-      console.error('Failed to save item position:', err);
+      console.error('Failed to save item position to local storage:', err);
     }
 
     setDraggedItemId(null);
@@ -103,7 +87,7 @@ const GameRoom = () => {
       }}
     >
       <h2>Room: {ROOM_ID}</h2>
-      <p>Drag the block around. Its position will save to Cloudflare D1.</p>
+      <p>Drag the block around. Its position will save to Local Storage.</p>
 
       {items.map((item) => (
         <div
