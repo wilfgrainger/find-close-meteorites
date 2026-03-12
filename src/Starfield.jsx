@@ -1,23 +1,31 @@
 import React, { useEffect, useRef } from 'react';
 
+const STAR_COUNT = 120;
+
 const Starfield = ({ width, height }) => {
   const canvasRef = useRef(null);
-  const starsRef = useRef([]);
+  const starsRef = useRef(null);
+  const prevSizeRef = useRef({ w: 0, h: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // Create stars
-    const stars = Array.from({ length: 120 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 1.5 + 0.3,
-      speed: Math.random() * 0.4 + 0.1,
-      twinkle: Math.random() * Math.PI * 2,
-    }));
-    starsRef.current = stars;
+    // Only recreate stars when dimensions change meaningfully (>20px)
+    const dw = Math.abs(width - prevSizeRef.current.w);
+    const dh = Math.abs(height - prevSizeRef.current.h);
+    if (!starsRef.current || dw > 20 || dh > 20) {
+      starsRef.current = Array.from({ length: STAR_COUNT }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.5 + 0.3,
+        speed: Math.random() * 0.4 + 0.1,
+        twinkle: Math.random() * Math.PI * 2,
+      }));
+      prevSizeRef.current = { w: width, h: height };
+    }
+    const stars = starsRef.current;
 
     let animId;
     const draw = () => {

@@ -13,6 +13,8 @@ import {
 const COLLECTOR_W = 70;
 const COLLECTOR_H = 16;
 const METEORITE_SIZE = 28;
+const MAX_LIVES = 3;
+const CATCHES_PER_LEVEL = 15;
 
 const TYPES = {
   normal:  { emoji: '☄️', points: 10, color: '#b0b0b0' },
@@ -57,7 +59,7 @@ const MeteoriteHunter = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(loadHigh);
   const [level, setLevel] = useState(1);
-  const [lives, setLives] = useState(3);
+  const [lives, setLives] = useState(MAX_LIVES);
   const [combo, setCombo] = useState(0);
   const [shieldActive, setShieldActive] = useState(false);
   const [shakeClass, setShakeClass] = useState('');
@@ -98,14 +100,14 @@ const MeteoriteHunter = () => {
     meteorites.current = [];
     collectorX.current = W / 2;
     scoreRef.current = 0;
-    livesRef.current = 3;
+    livesRef.current = MAX_LIVES;
     levelRef.current = 1;
     comboRef.current = 0;
     shieldRef.current = false;
     caughtCount.current = 0;
     lastSpawn.current = 0;
     setScore(0);
-    setLives(3);
+    setLives(MAX_LIVES);
     setLevel(1);
     setCombo(0);
     setShieldActive(false);
@@ -192,7 +194,8 @@ const MeteoriteHunter = () => {
               if (livesRef.current <= 0) {
                 setPhase('over');
                 playGameOver();
-                if (scoreRef.current > loadHigh()) {
+                const currentHigh = highScore;
+                if (scoreRef.current > currentHigh) {
                   saveHigh(scoreRef.current);
                   setHighScore(scoreRef.current);
                 }
@@ -216,7 +219,7 @@ const MeteoriteHunter = () => {
             m.type === 'gold' ? playBonusCollect() : playCollect();
 
             /* level up every 15 catches */
-            if (caughtCount.current % 15 === 0) {
+            if (caughtCount.current % CATCHES_PER_LEVEL === 0) {
               levelRef.current += 1;
               setLevel(levelRef.current);
               playLevelUp();
@@ -301,7 +304,7 @@ const MeteoriteHunter = () => {
           </div>
           <div>Lv {level}</div>
           <div>
-            {'❤️'.repeat(lives)}{'🖤'.repeat(Math.max(0, 3 - lives))}
+            {'❤️'.repeat(lives)}{'🖤'.repeat(Math.max(0, MAX_LIVES - lives))}
             {shieldActive && ' 🛡️'}
           </div>
         </div>
