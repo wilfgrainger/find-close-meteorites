@@ -12,6 +12,24 @@
 
 set -euo pipefail
 
+# ── Detect Windows (Git Bash / MINGW / MSYS / Cygwin) ────────────────────────
+case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*)
+        echo "❌  Windows detected (Git Bash / MINGW / MSYS)."
+        echo "    This script is for Linux and macOS only."
+        echo
+        echo "    Please use one of the Windows setup scripts instead:"
+        echo
+        echo "      PowerShell (recommended):"
+        echo "        .\\setup.ps1"
+        echo
+        echo "      Command Prompt:"
+        echo "        setup.bat"
+        echo
+        exit 1
+        ;;
+esac
+
 echo "============================================"
 echo "  DeepSeek R1 (8B) — Local Setup"
 echo "============================================"
