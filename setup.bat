@@ -1,12 +1,12 @@
 @echo off
-REM setup.bat — Install everything needed to run DeepSeek R1 (Qwen3 8B) locally on Windows.
+REM setup.bat — Install everything needed to run DeepSeek R1 (8B) locally on Windows.
 REM
 REM Usage:
 REM   Double-click this file, or run from Command Prompt:
 REM     setup.bat
 
 echo ============================================
-echo   DeepSeek R1 (Qwen3 8B) — Local Setup
+echo   DeepSeek R1 (8B) — Local Setup
 echo ============================================
 echo.
 

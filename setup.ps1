@@ -1,4 +1,4 @@
-# setup.ps1 — Install everything needed to run DeepSeek R1 (Qwen3 8B) locally on Windows.
+# setup.ps1 — Install everything needed to run DeepSeek R1 (8B) locally on Windows.
 #
 # Usage (run from PowerShell):
 #   .\setup.ps1
@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
-Write-Host "  DeepSeek R1 (Qwen3 8B) - Local Setup"     -ForegroundColor Cyan
+Write-Host "  DeepSeek R1 (8B) - Local Setup"            -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 

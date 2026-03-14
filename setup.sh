@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup.sh — Install everything needed to run DeepSeek R1 (Qwen3 8B) locally.
+# setup.sh — Install everything needed to run DeepSeek R1 (8B) locally.
 #
 # Usage:
 #   chmod +x setup.sh
@@ -7,13 +7,13 @@
 #
 # What this script does:
 #   1. Installs Ollama (the easiest way to run LLMs on your own machine).
-#   2. Pulls the DeepSeek R1 distill Qwen 8B model (~5 GB download).
+#   2. Pulls the DeepSeek R1 8B model (~5 GB download).
 #   3. Creates a Python virtual environment and installs dependencies.
 
 set -euo pipefail
 
 echo "============================================"
-echo "  DeepSeek R1 (Qwen3 8B) — Local Setup"
+echo "  DeepSeek R1 (8B) — Local Setup"
 echo "============================================"
 echo
 

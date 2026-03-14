@@ -1,6 +1,6 @@
 # DeepSeek R1 — Local Chat
 
-Run the **DeepSeek R1 distill Qwen 8B** large-language model on your own
+Run the **DeepSeek R1 8B** large-language model on your own
 Windows machine and chat with it from the terminal. No cloud account or API
 key needed — everything runs locally.
 

@@ -1,5 +1,5 @@
 """
-chat.py — Interactive chat with DeepSeek R1 (Qwen3 8B) running locally via Ollama.
+chat.py — Interactive chat with DeepSeek R1 (8B) running locally via Ollama.
 
 Usage:
     python chat.py                  # interactive chat (default)
@@ -96,7 +96,7 @@ def oneshot(prompt):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Chat with DeepSeek R1 (Qwen3 8B) locally via Ollama."
+        description="Chat with DeepSeek R1 (8B) locally via Ollama."
     )
     parser.add_argument(
         "--oneshot",
